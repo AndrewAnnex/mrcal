@@ -9,6 +9,7 @@ VERSION := $(VERSION_FROM_PROJECT)
 LIB_SOURCES +=			\
   mrcal.c			\
   mrcal-opencv.c		\
+  mrcal-eigen.cc		\
   poseutils.c			\
   poseutils-opencv.c		\
   poseutils-uses-autodiff.cc	\
@@ -73,6 +74,8 @@ ALL_NPSP_EXTENSION_MODULES := $(patsubst %-genpywrap.py,%,$(wildcard *-genpywrap
 ALL_PY_EXTENSION_MODULES   := _mrcal $(patsubst %,_%_npsp,$(ALL_NPSP_EXTENSION_MODULES))
 %/:
 	mkdir -p $@
+
+mrcal-eigen.o: CXXFLAGS+=-I/usr/include/eigen3
 
 ######### python stuff
 %-npsp-pywrap-GENERATED.c: %-genpywrap.py
